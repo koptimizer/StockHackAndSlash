@@ -1,7 +1,7 @@
 # StockHackAndSlash
 - 매일 국내주식의 단타용 종목을 추천해주는 LSTM기반 추천시스템입니다.
 - Naver finance의 주식정보 및 주가 데이터를 이용했습니다.
-- 액면분할 및 거래정지, 떡락에 취약해서 해당 종목엔 이슈가 발생합니다.
+- 액면분할 및 거래정지, 떡락의 이슈가 존재하는 종목에 취약합니다.
 
 ## Environment & Lisence
 - ```tensorflow ver 1.13.1```
