@@ -3,7 +3,7 @@
 
 ## 왜 만들었죠?
   <p align = 'center'>
-    <img src = "https://github.com/koptimizer/StockHackAndSlash/blob/master/pics/boom.jpg" ><br>
+    <img src = "https://github.com/koptimizer/StockHackAndSlash/blob/master/pics/boom.jpg" height= "500px" ><br>
   </p>
   
 - 모의투자 최하위권 달성했거든요!
