@@ -20,7 +20,7 @@
   
 ## 성능 평가
 <p align = 'center'>
-    <img src = "https://github.com/koptimizer/StockHackAndSlash/blob/master/pics/%EC%86%A1%EB%8A%A5.JPG" ><br>
+    <img src = "https://github.com/koptimizer/StockHackAndSlash/blob/master/pics/per.jpg" ><br>
   <img src = "https://github.com/koptimizer/StockHackAndSlash/blob/master/pics/%EB%96%A1%EC%83%81%EA%B0%80%EC%9E%90.JPG" ><br>
   </p>
 
