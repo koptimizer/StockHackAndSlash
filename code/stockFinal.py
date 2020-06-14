@@ -272,7 +272,6 @@ def predictor(stock_df, inputSec) :
 
     tf.reset_default_graph()
 
-
 def multiPredictor(stock_df) :
     ranking = pd.DataFrame(columns=["종목", "현재가격", "내일가격", "전일비"])
     test_df = pd.DataFrame()
@@ -451,18 +450,24 @@ def multiPredictor(stock_df) :
         ranking.loc[stock] = [stock_df.iloc[stock][0], today_pri, test_predict[0], test_diff]
         tf.reset_default_graph()
         print(stock_df.iloc[stock][0], today_pri, test_predict[0], test_diff)
-    print(ranking.sort_values(by=["전일비"]))
-
+    print(ranking.sort_values(by=["전일비"], ascending=False))
+    today = datetime.datetime.now().strftime("%Y%m%d")
+    data_source = "./goodStock_df" + today + ".csv"
+    ranking.to_csv(data_source)
 
 def run() :
     # stock 데이터 전처리
     STOCK_RANK = 100
     try :
         # 미리 전처리된 주가 데이터가 있다면 그 데이터를 사용합니다.
-        stock_df = pd.read_csv("./stock_df.csv")
+        today = datetime.datetime.now().strftime("%Y%m%d")
+        data_source = "./stock_df" + today + ".csv"
+        stock_df = pd.read_csv(data_source)
+        stock_df.종목코드 = stock_df.종목코드.map("{:06d}".format)
         stock_df.drop("Unnamed: 0", axis=1, inplace=True)
 
     except :
+        print("금일 주가 테이블을 생성합니다.")
         # 주식정보와 주가데이터를 이용해서 주식정보에 최근일 거래량을 달아즙니다.
         stock_df = \
         pd.read_html('http://kind.krx.co.kr/corpgeneral/corpList.do?method=download&searchType=13', header=0)[0]
@@ -481,46 +486,47 @@ def run() :
             test_df.drop(['날짜', '종가', '전일비', '시가', '고가', '저가'], axis=1, inplace=True)
             volumeArray.append(test_df.iloc[0][0])
             if stock % 100 == 0 and stock != 0:
-                print(stock / len(stock_df) * 100, "% 로딩중입니다...")
+                print(stock / len(stock_df) * 100, "% 로딩중...")
         stock_df["최근일 거래량"] = volumeArray
 
-        stock_df.to_csv("./stock_df.csv")
+        today = datetime.datetime.now().strftime("%Y%m%d")
+        data_source = "./stock_df" + today + ".csv"
+        stock_df.to_csv(data_source)
 
-    print("로딩완료!")
+    print("로딩 완료!")
     print("=" * 100)
 
     while 1 :
         print("단타용 주가 예측 및 종목 추천 프로그램입니다.")
         print("1. 프로그램 설명")
-        print("2. 모든 종목 조회")
+        print("2. 주식 정보 조회")
         print("3. 단일 종목 단타 예측")
-        print("4. 종목 추천")
+        print("4. 단타 종목 추천")
         inputFir = input()
 
         if inputFir == "1" :
             print("Naver Finance의 데이터를 이용해 분석을 하는 프로그램입니다.")
-            print("2017 ~ 현재 사이에 액면분할을 한 주식은 이슈가 존재합니다 ㅠ")
-            print("상장일이 3년 미만인 주식은 표현되지 않습니다.")
 
         elif inputFir == "2" :
             print(stock_df)
             print(stock_df.info())
 
         elif inputFir == "3" :
-            try :
-                inputSec = input("종목을 입력해주세요.")
-                predictor(stock_df, inputSec)
-            except :
-                print("다시 입력해주세요!")
+            #try :
+            inputSec = input("종목을 입력해주세요.")
+            predictor(stock_df, inputSec)
+            #except :
+            #    print("다시 입력해주세요!")
 
         elif inputFir == "4" :
-            stock_df.sort_values(by=['최근일 거래량'], inplace=True, ascending=False)
-            for stock in range(len(stock_df)):
+            stock_dfs = stock_df.copy()
+            stock_dfs.sort_values(by=['최근일 거래량'], inplace=True, ascending=False)
+            for stock in range(len(stock_dfs)):
                 if stock >= STOCK_RANK:
-                    stock_df.drop(stock, inplace=True)
-            multiPredictor(stock_df)
+                    stock_dfs.drop(stock, inplace=True)
+            multiPredictor(stock_dfs)
+
 
         else : print("다시 입력해주세요!")
-
 
 run()
