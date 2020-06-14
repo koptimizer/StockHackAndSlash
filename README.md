@@ -18,12 +18,14 @@
   - 거래량 상위 100개의 주식을 선택합니다.
   - 100개의 주식의 내일 가격을 예측하고, 순서대로 정렬해서 종목을 추천합니다.
   
+## 성능 평가
+<p align = 'center'>
+    <img src = "https://github.com/koptimizer/StockHackAndSlash/blob/master/pics/%EC%86%A1%EB%8A%A5.JPG" ><br>
+  <img src = "https://github.com/koptimizer/StockHackAndSlash/blob/master/pics/%EB%96%A1%EC%83%81%EA%B0%80%EC%9E%90.JPG" ><br>
+  </p>
+
+  
 ## 이슈
 - 회사나 정책에 대한 뉴스, 성과에 대한 정보, 각종 지수등도 크롤링해서 활용한다면 더 높은 성능을 확보할 수 있을듯 합니다.
 - 액면분할 및 거래정지, 떡락의 이슈가 존재하는 종목에 취약합니다.
 
-## 성능 평가
-<p align = 'center'>
-    <img src = "https://github.com/koptimizer/StockHackAndSlash/blob/master/송능.JPG" ><br>
-  <img src = "https://github.com/koptimizer/StockHackAndSlash/blob/master/떡상가자.JPG" ><br>
-  </p>
